@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<htmllang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Element In DOM || Chai Aur Code</title>
+    <style>
+        .bg-black {
+            background-color: #212121;
+            color: beige;
+        }
+    </style>
+</head>
+<body class="bg-black">
+
+</body>
+
+<script>
+
+    // ------------ Creating Element ------------------
+    const div = document.createElement('div')
+    console.log(div);
+    div.className = "main"
+    div.id = "myId"
+    // div.id = Math.floor( Math.random() * 10 + 1 )
+    div.setAttribute("title", "generated title")
+    div.style.backgroundColor = "green"
+    div.style.padding = "20px"
+    div.innerHTML = "Chai Aur Code By Hitesh Sir"
+
+// ------------- Creating Text Node ----------------------
+    const addText = document.createTextNode("Haseeb Learning JS")
+    div.appendChild(addText)
+
+    document.body.appendChild(div)
+
+
+</script>
+</html>
