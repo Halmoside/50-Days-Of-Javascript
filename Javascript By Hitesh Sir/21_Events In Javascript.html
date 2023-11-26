@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Events In Javascript</title>
+</head>
+<style>
+    body {
+        background-color: #414141;
+    }
+    h2, li, a {
+        color: beige;
+    }
+</style>
+<body>
+    <h2>Amazing Images</h2>
+    <div>
+        <ul id="images">
+            <li><img src="https://images.unsplash.com/photo-1635192592106-77a5aacbe1a3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZGl3YWxpfGVufDB8fDB8fHww" id="diwaliPic" alt="diwaliPic" width="200px"></li>
+            <li><img src="https://images.unsplash.com/photo-1592843997881-cab3860b1067?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZGl3YWxpfGVufDB8fDB8fHww" id="diwaliPic" alt="diwaliPic" width="200px"></li>
+            <li><img src="https://images.unsplash.com/photo-1616353071588-708dcff912e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YXBwbGUlMjBpcGhvbmV8ZW58MHx8MHx8fDA%3D" id="iPhone" alt="iPhone" width="200px"></li>
+            <li><img src="https://images.unsplash.com/photo-1682686581220-689c34afb6ef?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHx8" id="nature" alt="nature" width="200px"></li>
+            <li><img src="https://images.unsplash.com/photo-1682685797736-dabb341dc7de?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxMXx8fGVufDB8fHx8fA%3D%3D" id="nature" alt="nature" width="200px"></li>
+            <li><a href="https://www.google.com" id="google">Google</a></li>
+        </ul>
+    </div>
+</body>
+
+
+
+<script>
+
+// ------------- Topics to study --------------
+
+// attachEvent()
+// jQuery ---> on (Event)
+// type (Events), timestamp, defaultPrevented
+// target, toElement, srcElement, currentTarget
+// clientX, clientY, screenX, screenY
+// altkey, ctrlkey, keyCode
+
+
+// -------------- 1st Approach ----------------------
+
+// <li><img src="https://images.unsplash.com/photo-1616353071588-708dcff912e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YXBwbGUlMjBpcGhvbmV8ZW58MHx8MHx8fDA%3D" id="iPhone" onclick = alert ("iPhone") alt="iPhone" width="200px"></li>
+
+// ------------ 2nd Approach -----------------------  
+
+    // document.getElementById('iPhone').onclick = function () {
+    //     alert("Iphone Clicked")     
+    // }
+
+// --------------- 3rd Approach --------------------------
+
+document.getElementById('iPhone').addEventListener('click', function (e) {
+    alert("iPhone Clicked Again")
+}, false)
+
+
+//          <---------------------------------------------------------------------------------->
+
+document.getElementById('iPhone').addEventListener('click', function (e) {
+    alert("iPhone Clicked Again")
+}, false)
+
+document.getElementById('diwaliPic').addEventListener('click', function (e) {
+    alert("Diwali pic Clicked ")
+}, true)
+
+// -------------- Event Propogation ----------------
+// Event Propogation has two context.
+// 1. Event Capturing (true)
+// 2. Event Bubbling  (false) ---------> It is default
+
+// --------- Examples ----------------
+// How Event Propogation is done and how we can stop.
+
+//  .............Through Event Bubbling...........
+// Bubbling means -------> Bottom to Top (Neeche Se Upar Jata hai.)
+// Example ------> images -----> ul ------> li
+
+document.getElementById('images').addEventListener('click', function (e) {
+    console.log("Clicked inside the ul");
+}, false)
+
+// Output ---------> Clicked inside the ul
+
+
+document.getElementById('nature').addEventListener('click', function (e) {
+    console.log("Nature Clicked");
+    e.stopPropagation()
+}, false)
+
+// Output ---------> Nature Clicked
+//                   Clicked inside the ul
+
+
+//  .............Through Event Capturing...........
+// Capturing means -------> Top to Bottom  (Upar se Neeche Jata hai.)
+// Example ------>  ul ------> li
+
+
+document.getElementById('images').addEventListener('click', function (e) {
+    console.log("Clicked inside the ul");
+}, true)
+
+// Output ---------> Clicked inside the ul
+
+
+document.getElementById('nature').addEventListener('click', function (e) {
+    console.log("Nature Clicked");
+    e.stopPropagation()
+}, true)
+
+// Output ---------> Clicked inside the ul
+//                   Nature Clicked
+
+
+document.getElementById('google').addEventListener('click', function (e) {
+    e.preventDefault()
+    e.stopPropagation()
+    console.log("Google Clicked");
+}, false)
+
+// -------------------------- Images Project In Javascript -------------------------------------
+
+document.querySelector('#images').addEventListener('click', function(e) {
+    console.log(e);
+    console.log(e.target);
+    console.log(e.target.parentNode);
+    if (e.target.tagName === 'IMG') {
+        console.log(e.target.id);
+        let removeIt = e.target.parentNode
+         removeIt.remove()
+    }
+    // let removeIt = e.target.parentNode
+// ---------- 1st Approach to remove -------------
+    // removeIt.remove()
+//   ---------- 2nd Approach to remove -------------
+    // removeIt.parentNode.removeChild(removeIt)
+
+}, false)
+
+
+
+</script>
+</html>
